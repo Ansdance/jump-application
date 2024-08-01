@@ -1,0 +1,110 @@
+
+entity Region {
+	regionName String
+}
+
+entity Country {
+	countryName String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Location {
+	streetAddress String
+	postalCode String
+	city String
+	stateProvince String
+}
+
+entity Tournament {
+	tournamentName String required
+}
+
+/**
+ * Task entity.
+ * @author The JHipster team.
+ */
+entity Task {
+	title String
+	description String
+}
+
+/**
+ * The Employee entity.
+ */
+entity Player { //employee
+	/**
+	* The firstname attribute.
+	*/
+	firstName String
+	lastName String
+	email String
+	phoneNumber String
+}
+
+entity Statistic { //static
+	statisticTitle String
+
+}
+
+entity StatisticHistory {
+	startDate Instant
+	endDate Instant
+	language Language
+}
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
+relationship OneToOne {
+	Country{region} to Region
+}
+
+relationship OneToOne {
+	Location{country} to Country
+}
+
+relationship OneToOne {
+	Tournament{location} to Location
+}
+
+relationship ManyToMany {
+	Statistic{task(title)} to Task{statistic}
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Player to Statistic{employee}
+	/**
+	* A relationship
+	*/
+	Tournament to
+	/**
+	* Another side of the same relationship
+	*/
+	Player{tournament}
+}
+
+relationship ManyToOne {
+	Player{manager} to Player
+}
+
+// defining multiple oneToOne relationships
+relationship OneToOne {
+	StatisticHistory{statistic} to Statistic
+	StatisticHistory{department} to Tournament
+	StatisticHistory{employee} to Player
+}
+
+// Set pagination options
+paginate Statistic, Player, StatisticHistory with pagination
+
+// Use Data Transfer Objects (DTO)
+ dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Player, Statistic
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
