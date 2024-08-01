@@ -1,0 +1,131 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-statistic-history-heading"
+        data-cy="StatisticHistoryCreateUpdateHeading"
+        jhiTranslate="jumpApp.statisticHistory.home.createOrEditLabel"
+      >
+        Создать или отредактировать Statistic History
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="jumpApp.statisticHistory.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_startDate" jhiTranslate="jumpApp.statisticHistory.startDate">Start Date</label>
+          <div class="d-flex">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="datetime-local"
+              class="form-control"
+              name="startDate"
+              formControlName="startDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_endDate" jhiTranslate="jumpApp.statisticHistory.endDate">End Date</label>
+          <div class="d-flex">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="datetime-local"
+              class="form-control"
+              name="endDate"
+              formControlName="endDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_language" jhiTranslate="jumpApp.statisticHistory.language">Language</label>
+          <select class="form-control" name="language" formControlName="language" id="field_language" data-cy="language">
+            <option [ngValue]="null">{{ 'jumpApp.Language.null' | translate }}</option>
+            @for (language of languageValues; track $index) {
+              <option [value]="language">{{ 'jumpApp.Language.' + language | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_statistic" jhiTranslate="jumpApp.statisticHistory.statistic">Statistic</label>
+          <select
+            class="form-control"
+            id="field_statistic"
+            data-cy="statistic"
+            name="statistic"
+            formControlName="statistic"
+            [compareWith]="compareStatistic"
+          >
+            <option [ngValue]="null"></option>
+            @for (statisticOption of statisticsCollection; track $index) {
+              <option [ngValue]="statisticOption">{{ statisticOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_department" jhiTranslate="jumpApp.statisticHistory.department">Department</label>
+          <select
+            class="form-control"
+            id="field_department"
+            data-cy="department"
+            name="department"
+            formControlName="department"
+            [compareWith]="compareTournament"
+          >
+            <option [ngValue]="null"></option>
+            @for (tournamentOption of departmentsCollection; track $index) {
+              <option [ngValue]="tournamentOption">{{ tournamentOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_employee" jhiTranslate="jumpApp.statisticHistory.employee">Employee</label>
+          <select
+            class="form-control"
+            id="field_employee"
+            data-cy="employee"
+            name="employee"
+            formControlName="employee"
+            [compareWith]="comparePlayer"
+          >
+            <option [ngValue]="null"></option>
+            @for (playerOption of employeesCollection; track $index) {
+              <option [ngValue]="playerOption">{{ playerOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Сохранить</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

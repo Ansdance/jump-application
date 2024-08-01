@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (player()) {
+      <div>
+        <h2 data-cy="playerDetailsHeading"><span jhiTranslate="jumpApp.player.detail.title">Player</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ player()!.id }}</span>
+          </dd>
+          <dt>
+            <span [ngbTooltip]="'jumpApp.player.help.firstName' | translate" jhiTranslate="jumpApp.player.firstName">First Name</span>
+          </dt>
+          <dd>
+            <span>{{ player()!.firstName }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.player.lastName">Last Name</span></dt>
+          <dd>
+            <span>{{ player()!.lastName }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.player.email">Email</span></dt>
+          <dd>
+            <span>{{ player()!.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.player.phoneNumber">Phone Number</span></dt>
+          <dd>
+            <span>{{ player()!.phoneNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.player.manager">Manager</span></dt>
+          <dd>
+            @if (player()!.manager) {
+              <div>
+                <a [routerLink]="['/player', player()!.manager?.id, 'view']">{{ player()!.manager?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="jumpApp.player.tournament">Tournament</span></dt>
+          <dd>
+            @if (player()!.tournament) {
+              <div>
+                <a [routerLink]="['/tournament', player()!.tournament?.id, 'view']">{{ player()!.tournament?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+        </button>
+
+        <button type="button" [routerLink]="['/player', player()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (statisticHistory()) {
+      <div>
+        <h2 data-cy="statisticHistoryDetailsHeading">
+          <span jhiTranslate="jumpApp.statisticHistory.detail.title">Statistic History</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ statisticHistory()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.statisticHistory.startDate">Start Date</span></dt>
+          <dd>
+            <span>{{ statisticHistory()!.startDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.statisticHistory.endDate">End Date</span></dt>
+          <dd>
+            <span>{{ statisticHistory()!.endDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.statisticHistory.language">Language</span></dt>
+          <dd>
+            <span [jhiTranslate]="'jumpApp.Language.' + (statisticHistory()!.language ?? 'null')">{{
+              { null: '', FRENCH: 'FRENCH', ENGLISH: 'ENGLISH', SPANISH: 'SPANISH' }[statisticHistory()!.language ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.statisticHistory.statistic">Statistic</span></dt>
+          <dd>
+            @if (statisticHistory()!.statistic) {
+              <div>
+                <a [routerLink]="['/statistic', statisticHistory()!.statistic?.id, 'view']">{{ statisticHistory()!.statistic?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="jumpApp.statisticHistory.department">Department</span></dt>
+          <dd>
+            @if (statisticHistory()!.department) {
+              <div>
+                <a [routerLink]="['/tournament', statisticHistory()!.department?.id, 'view']">{{ statisticHistory()!.department?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="jumpApp.statisticHistory.employee">Employee</span></dt>
+          <dd>
+            @if (statisticHistory()!.employee) {
+              <div>
+                <a [routerLink]="['/player', statisticHistory()!.employee?.id, 'view']">{{ statisticHistory()!.employee?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+        </button>
+
+        <button type="button" [routerLink]="['/statistic-history', statisticHistory()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

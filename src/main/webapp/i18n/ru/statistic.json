@@ -1,0 +1,27 @@
+{
+  "jumpApp": {
+    "statistic": {
+      "home": {
+        "title": "Statistics",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Statistic",
+        "createOrEditLabel": "Создать или отредактировать Statistic",
+        "notFound": "Statistics не найдено"
+      },
+      "created": "Новый Statistic создан с идентификатором {{ param }}",
+      "updated": "Statistic обновлен с идентификатором {{ param }}",
+      "deleted": "Statistic удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Statistic {{ id }}?"
+      },
+      "detail": {
+        "title": "Statistic"
+      },
+      "id": "ID",
+      "statisticTitle": "Statistic Title",
+      "task": "Task",
+      "employee": "Employee",
+      "statisticHistory": "Statistic History"
+    }
+  }
+}

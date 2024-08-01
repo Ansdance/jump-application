@@ -1,0 +1,27 @@
+{
+  "jumpApp": {
+    "tournament": {
+      "home": {
+        "title": "Tournaments",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Tournament",
+        "createOrEditLabel": "Создать или отредактировать Tournament",
+        "notFound": "Tournaments не найдено"
+      },
+      "created": "Новый Tournament создан с идентификатором {{ param }}",
+      "updated": "Tournament обновлен с идентификатором {{ param }}",
+      "deleted": "Tournament удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Tournament {{ id }}?"
+      },
+      "detail": {
+        "title": "Tournament"
+      },
+      "id": "ID",
+      "tournamentName": "Tournament Name",
+      "location": "Location",
+      "player": "Player",
+      "statisticHistory": "Statistic History"
+    }
+  }
+}

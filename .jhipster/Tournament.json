@@ -1,0 +1,33 @@
+{
+  "annotations": {
+    "changelogDate": "20240801162657"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "tournamentName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Tournament",
+  "relationships": [
+    {
+      "otherEntityName": "location",
+      "relationshipName": "location",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "documentation": "A relationship",
+      "otherEntityName": "player",
+      "otherEntityRelationshipName": "tournament",
+      "relationshipName": "player",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
