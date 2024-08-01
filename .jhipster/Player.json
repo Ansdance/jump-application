@@ -1,0 +1,53 @@
+{
+  "annotations": {
+    "changelogDate": "20240801162659"
+  },
+  "applications": "*",
+  "documentation": "The Employee entity.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "documentation": "The firstname attribute.",
+      "fieldName": "firstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Player",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "statistic",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "statistic",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "player",
+      "relationshipName": "manager",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "documentation": "Another side of the same relationship",
+      "otherEntityName": "tournament",
+      "relationshipName": "tournament",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

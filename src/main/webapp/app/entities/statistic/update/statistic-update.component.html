@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-statistic-heading" data-cy="StatisticCreateUpdateHeading" jhiTranslate="jumpApp.statistic.home.createOrEditLabel">
+        Создать или отредактировать Statistic
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="jumpApp.statistic.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_statisticTitle" jhiTranslate="jumpApp.statistic.statisticTitle">Statistic Title</label>
+          <input
+            type="text"
+            class="form-control"
+            name="statisticTitle"
+            id="field_statisticTitle"
+            data-cy="statisticTitle"
+            formControlName="statisticTitle"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="field_tasks" jhiTranslate="jumpApp.statistic.task">Task</label>
+          <select
+            class="form-control"
+            id="field_tasks"
+            data-cy="task"
+            multiple
+            name="tasks"
+            formControlName="tasks"
+            [compareWith]="compareTask"
+          >
+            @for (taskOption of tasksSharedCollection; track $index) {
+              <option [ngValue]="taskOption">{{ taskOption.title }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_employee" jhiTranslate="jumpApp.statistic.employee">Employee</label>
+          <select
+            class="form-control"
+            id="field_employee"
+            data-cy="employee"
+            name="employee"
+            formControlName="employee"
+            [compareWith]="comparePlayer"
+          >
+            <option [ngValue]="null"></option>
+            @for (playerOption of playersSharedCollection; track $index) {
+              <option [ngValue]="playerOption">{{ playerOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Сохранить</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
