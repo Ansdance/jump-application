@@ -1,0 +1,170 @@
+<div>
+  <h2 id="page-heading" data-cy="StatisticHistoryHeading">
+    <span jhiTranslate="jumpApp.statisticHistory.home.title">Statistic Histories</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="jumpApp.statisticHistory.home.refreshListLabel">Обновить список</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-statistic-history"
+        [routerLink]="['/statistic-history/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="jumpApp.statisticHistory.home.createLabel">Создать новый Statistic History</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (statisticHistories?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="jumpApp.statisticHistory.home.notFound">Statistic Histories не найдено</span>
+    </div>
+  }
+
+  @if (statisticHistories && statisticHistories.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="startDate">
+              <div class="d-flex">
+                <span jhiTranslate="jumpApp.statisticHistory.startDate">Start Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="endDate">
+              <div class="d-flex">
+                <span jhiTranslate="jumpApp.statisticHistory.endDate">End Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="language">
+              <div class="d-flex">
+                <span jhiTranslate="jumpApp.statisticHistory.language">Language</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="statistic.id">
+              <div class="d-flex">
+                <span jhiTranslate="jumpApp.statisticHistory.statistic">Statistic</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="department.id">
+              <div class="d-flex">
+                <span jhiTranslate="jumpApp.statisticHistory.department">Department</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="employee.id">
+              <div class="d-flex">
+                <span jhiTranslate="jumpApp.statisticHistory.employee">Employee</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (statisticHistory of statisticHistories; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/statistic-history', statisticHistory.id, 'view']">{{ statisticHistory.id }}</a>
+              </td>
+              <td>{{ statisticHistory.startDate | formatMediumDatetime }}</td>
+              <td>{{ statisticHistory.endDate | formatMediumDatetime }}</td>
+              <td [jhiTranslate]="'jumpApp.Language.' + (statisticHistory.language ?? 'null')">
+                {{ { null: '', FRENCH: 'FRENCH', ENGLISH: 'ENGLISH', SPANISH: 'SPANISH' }[statisticHistory.language ?? 'null'] }}
+              </td>
+              <td>
+                @if (statisticHistory.statistic) {
+                  <div>
+                    <a [routerLink]="['/statistic', statisticHistory.statistic.id, 'view']">{{ statisticHistory.statistic.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (statisticHistory.department) {
+                  <div>
+                    <a [routerLink]="['/tournament', statisticHistory.department.id, 'view']">{{ statisticHistory.department.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (statisticHistory.employee) {
+                  <div>
+                    <a [routerLink]="['/player', statisticHistory.employee.id, 'view']">{{ statisticHistory.employee.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/statistic-history', statisticHistory.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/statistic-history', statisticHistory.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(statisticHistory)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (statisticHistories && statisticHistories.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>
