@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (tournament()) {
+      <div>
+        <h2 data-cy="tournamentDetailsHeading"><span jhiTranslate="jumpApp.tournament.detail.title">Tournament</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ tournament()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.tournament.tournamentName">Tournament Name</span></dt>
+          <dd>
+            <span>{{ tournament()!.tournamentName }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.tournament.location">Location</span></dt>
+          <dd>
+            @if (tournament()!.location) {
+              <div>
+                <a [routerLink]="['/location', tournament()!.location?.id, 'view']">{{ tournament()!.location?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="jumpApp.tournament.team">Team</span></dt>
+          <dd>
+            @for (team of tournament()!.teams; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/team', team.id, 'view']">{{ team?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+        </button>
+
+        <button type="button" [routerLink]="['/tournament', tournament()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

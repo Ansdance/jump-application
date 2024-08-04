@@ -8,7 +8,15 @@
       "entities": {
         "main": "Сущности",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authority"
+        "region": "Region",
+        "country": "Country",
+        "location": "Location",
+        "tournament": "Tournament",
+        "task": "Task",
+        "player": "Player",
+        "statistic": "Statistic",
+        "statisticHistory": "Statistic History",
+        "team": "Team"
       },
       "account": {
         "main": "Профиль",
