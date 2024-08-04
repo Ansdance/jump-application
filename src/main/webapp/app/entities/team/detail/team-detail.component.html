@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (team()) {
+      <div>
+        <h2 data-cy="teamDetailsHeading"><span jhiTranslate="jumpApp.team.detail.title">Team</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ team()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.team.teamName">Team Name</span></dt>
+          <dd>
+            <span>{{ team()!.teamName }}</span>
+          </dd>
+          <dt><span jhiTranslate="jumpApp.team.tournament">Tournament</span></dt>
+          <dd>
+            @for (tournament of team()!.tournaments; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/tournament', tournament.id, 'view']">{{ tournament?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+        </button>
+
+        <button type="button" [routerLink]="['/team', team()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "jumpApp": {
+    "statisticHistory": {
+      "home": {
+        "title": "Statistic Histories",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Statistic History",
+        "createOrEditLabel": "Create or edit a Statistic History",
+        "notFound": "No Statistic Histories found"
+      },
+      "created": "A new Statistic History is created with identifier {{ param }}",
+      "updated": "A Statistic History is updated with identifier {{ param }}",
+      "deleted": "A Statistic History is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Statistic History {{ id }}?"
+      },
+      "detail": {
+        "title": "Statistic History"
+      },
+      "id": "ID",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "language": "Language",
+      "statistic": "Statistic",
+      "department": "Department",
+      "employee": "Employee"
+    }
+  }
+}
